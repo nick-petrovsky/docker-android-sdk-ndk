@@ -16,6 +16,7 @@ RUN echo Cjg5MzNiYWQxNjFhZjQxNzhiMTE4NWQxYTM3ZmJmNDFlYTUyNjljNTU= | base64 -d > 
 RUN wget --quiet --output-document=${ANDROID_HOME}/android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS_REV}.zip
 RUN unzip -qq ${ANDROID_HOME}/android-sdk.zip -d ${ANDROID_HOME}
 RUN rm ${ANDROID_HOME}/android-sdk.zip
+RUN echo 'count=0' > $HOME/.android/repositories.cfg
 
 RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager --update 
 RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager 'tools' 
