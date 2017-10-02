@@ -2,11 +2,6 @@ FROM openjdk:8-jdk
 
 MAINTAINER Nick Petrovsky <nick.petrovsky@gmail.com>
 
-RUN useradd -u 1000 -M -s /bin/bash android
-RUN chown 1000 /opt
-
-USER android
-
 ENV ANDROID_COMPILE_SDK "25"
 ENV ANDROID_BUILD_TOOLS "26.0.2"
 ENV ANDROID_SDK_TOOLS_REV "4333796"  
@@ -33,6 +28,3 @@ RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager 'extras;google;m2repository'
 RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager 'cmake;'$ANDROID_CMAKE_REV 
 RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager 'ndk-bundle' 
 
-VOLUME ["/opt/android-sdk-linux"]
-
-USER root
