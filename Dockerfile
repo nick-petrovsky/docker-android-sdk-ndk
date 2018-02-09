@@ -2,30 +2,31 @@ FROM openjdk:8-jdk
 
 MAINTAINER Nick Petrovsky <nick.petrovsky@gmail.com>
 
-ENV ANDROID_COMPILE_SDK "27"
-ENV ANDROID_BUILD_TOOLS "27.0.3"
-ENV ANDROID_SDK_TOOLS_REV "4333796"  
-ENV ANDROID_CMAKE_REV "3.6.4111459"
+ENV ANDROID_COMPILE_SDK="27" \
+    ANDROID_BUILD_TOOLS="27.0.3" \
+    ANDROID_SDK_TOOLS_REV="3859397" \
+    ANDROID_CMAKE_REV="3.6.4111459"
 
 ENV ANDROID_HOME=/opt/android-sdk-linux
-ENV ANDROID_NDK_HOME ${ANDROID_HOME}/ndk-bundle
-ENV PATH ${PATH}:${ANDROID_HOME}/platform-tools/:${ANDROID_NDK_HOME}
+ENV PATH ${PATH}:${ANDROID_HOME}/platform-tools/:${ANDROID_NDK_HOME}:${ANDROID_HOME}/ndk-bundle:${ANDROID_HOME}/tools/bin/
 
-RUN mkdir -p ${ANDROID_HOME}/licenses
-RUN echo Cjg5MzNiYWQxNjFhZjQxNzhiMTE4NWQxYTM3ZmJmNDFlYTUyNjljNTU= | base64 -d > ${ANDROID_HOME}/licenses/android-sdk-license
-RUN wget --quiet --output-document=${ANDROID_HOME}/android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS_REV}.zip
-RUN unzip -qq ${ANDROID_HOME}/android-sdk.zip -d ${ANDROID_HOME}
-RUN rm ${ANDROID_HOME}/android-sdk.zip
-RUN echo 'count=0' > $HOME/.android/repositories.cfg
+RUN    mkdir -p ${ANDROID_HOME} \
+    && wget --quiet --output-document=${ANDROID_HOME}/android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS_REV}.zip \
+    && unzip -qq ${ANDROID_HOME}/android-sdk.zip -d ${ANDROID_HOME} \
+    && rm ${ANDROID_HOME}/android-sdk.zip \
+    && mkdir -p $HOME/.android \
+    && echo 'count=0' > $HOME/.android/repositories.cfg
 
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager --update 
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager 'tools' 
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager 'platform-tools' 
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager 'build-tools;'$ANDROID_BUILD_TOOLS 
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager 'platforms;android-'$ANDROID_COMPILE_SDK 
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager 'extras;android;m2repository' 
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager 'extras;google;google_play_services' 
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager 'extras;google;m2repository' 
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager 'cmake;'$ANDROID_CMAKE_REV 
-RUN echo y | $ANDROID_HOME/tools/bin/sdkmanager 'ndk-bundle' 
+RUN    yes | sdkmanager --licenses > /dev/null \ 
+    && yes | sdkmanager --update \
+    && yes | sdkmanager 'tools' \
+    && yes | sdkmanager 'platform-tools' \
+    && yes | sdkmanager 'build-tools;'$ANDROID_BUILD_TOOLS \
+    && yes | sdkmanager 'platforms;android-'$ANDROID_COMPILE_SDK \
+    && yes | sdkmanager 'extras;android;m2repository' \
+    && yes | sdkmanager 'extras;google;google_play_services' \
+    && yes | sdkmanager 'extras;google;m2repository' 
+
+RUN    yes | sdkmanager 'cmake;'$ANDROID_CMAKE_REV \
+    && yes | sdkmanager 'ndk-bundle' 
 
