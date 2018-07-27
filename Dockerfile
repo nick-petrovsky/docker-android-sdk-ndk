@@ -2,9 +2,9 @@ FROM openjdk:8-jdk
 
 MAINTAINER Nick Petrovsky <nick.petrovsky@gmail.com>
 
-ENV ANDROID_COMPILE_SDK="27" \
-    ANDROID_BUILD_TOOLS="27.0.3" \
-    ANDROID_SDK_TOOLS_REV="3859397" \
+ENV ANDROID_COMPILE_SDK="27"        \
+    ANDROID_BUILD_TOOLS="27.0.3"    \
+    ANDROID_SDK_TOOLS_REV="4333796" \
     ANDROID_CMAKE_REV="3.6.4111459"
 
 ENV ANDROID_HOME=/opt/android-sdk-linux
