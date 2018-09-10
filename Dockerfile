@@ -10,6 +10,10 @@ ENV ANDROID_COMPILE_SDK="27"        \
 ENV ANDROID_HOME=/opt/android-sdk-linux
 ENV PATH ${PATH}:${ANDROID_HOME}/platform-tools/:${ANDROID_NDK_HOME}:${ANDROID_HOME}/ndk-bundle:${ANDROID_HOME}/tools/bin/
 
+RUN apt-get update && \
+    apt-get install -y file && \
+    rm -rf /var/lib/apt/lists/*
+
 RUN    mkdir -p ${ANDROID_HOME} \
     && wget --quiet --output-document=${ANDROID_HOME}/android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS_REV}.zip \
     && unzip -qq ${ANDROID_HOME}/android-sdk.zip -d ${ANDROID_HOME} \
