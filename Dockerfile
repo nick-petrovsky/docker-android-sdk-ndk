@@ -33,6 +33,6 @@ RUN    yes | sdkmanager --licenses > /dev/null \
     && yes | sdkmanager 'extras;google;m2repository' 
 
 RUN    yes | sdkmanager 'cmake;'$ANDROID_CMAKE_REV \
-       yes | sdkmanager --channel=3 --channel=1 'cmake;'$ANDROID_CMAKE_REV_3_10
+       yes | sdkmanager --channel=3 --channel=1 'cmake;'$ANDROID_CMAKE_REV_3_10 \
     && yes | sdkmanager 'ndk-bundle' 
 
