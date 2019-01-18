@@ -5,7 +5,8 @@ MAINTAINER Nick Petrovsky <nick.petrovsky@gmail.com>
 ENV ANDROID_COMPILE_SDK="27"        \
     ANDROID_BUILD_TOOLS="28.0.3"    \
     ANDROID_SDK_TOOLS_REV="4333796" \
-    ANDROID_CMAKE_REV="3.6.4111459"
+    ANDROID_CMAKE_REV="3.6.4111459" \
+    ANDROID_CMAKE_REV_3_10="3.10.2.4988404"
 
 ENV ANDROID_HOME=/opt/android-sdk-linux
 ENV PATH ${PATH}:${ANDROID_HOME}/platform-tools/:${ANDROID_NDK_HOME}:${ANDROID_HOME}/ndk-bundle:${ANDROID_HOME}/tools/bin/
@@ -32,5 +33,6 @@ RUN    yes | sdkmanager --licenses > /dev/null \
     && yes | sdkmanager 'extras;google;m2repository' 
 
 RUN    yes | sdkmanager 'cmake;'$ANDROID_CMAKE_REV \
+       yes | sdkmanager --channel=3 --channel=1 'cmake;'$ANDROID_CMAKE_REV_3_10
     && yes | sdkmanager 'ndk-bundle' 
 
