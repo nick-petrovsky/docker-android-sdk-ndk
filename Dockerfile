@@ -28,6 +28,7 @@ RUN    yes | sdkmanager --licenses > /dev/null \
     && yes | sdkmanager 'platform-tools' \
     && yes | sdkmanager 'build-tools;'$ANDROID_BUILD_TOOLS \
     && yes | sdkmanager 'platforms;android-'$ANDROID_COMPILE_SDK \
+    && yes | sdkmanager 'platforms;android-28' \
     && yes | sdkmanager 'extras;android;m2repository' \
     && yes | sdkmanager 'extras;google;google_play_services' \
     && yes | sdkmanager 'extras;google;m2repository' 
